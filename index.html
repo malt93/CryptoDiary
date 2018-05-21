@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../nebPay.js"></script>
+    <script src="../nebulas.js"></script>
+    <script src="../aes.js"></script>
+    <script src="../aes-ctr.js"></script>
+    <script src="../jquery.min.js"></script>
+    <script src="../bootstrap.min.js"></script>
+    <script src="js/cd.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="../nebPay/dist/nebPay.js"></script>
+
+
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="./index.html">Crypto Diary</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li><a href="./createTable.html">Create Table</a></li>-->
+
+                </ul>
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--<li><a href="./About/">About</a></li>-->
+
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="jumbotron">
+
+
+        <div id="id_div_diarylist">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    address
+                </div>
+                <div class="panel-body" style="word-wrap:break-word">
+                    jQGH4sqiAlt/9AVjd6sVmJrcmFZdD0iYaBpz7pGyUFRMNtEH37i2+ReclEEdtDXbgLZQNcn/YKnpvztZdBsxTHdf6ZiIQUo2qT6vi48wAFSPUYnpJA046akJmBUwwdWrGvlgdVbdgIU9W8iuQ5QDs9ylINWzOgjWoYvZG84DO4D5xL42O+YBEUnhVzFB3WUTkuLJC8DP8inCM8azTmlTcREj3XrhhWubWFhMbXq4J5BfpwO4AjiOxD7irvnC3rlATREV0zLZCUE/M7+MLCvdIA/YN9OY53HKwMI2QtnlKJwndILRsE8hjVE0nWCrmeLHJcTs4CvqyhSU1Vpmc6OWWt4aZnoGeK3bdtlskZuiF2renEgnK27woxSpdzP7q8MFrw5SitwlTJenNw1UgHFp0k8aA+KsRs0H9MGfCzA1ZxF97z5G8RpKykQ/9mKUXtv/X1MmgGvCQH18wiOReBafux8QHlsIWr2ZD/ZCFLjhklRPFjsyt704INFd610u51bSrTvoWYdgnd9iXMJbsM+1LffciQrp6cDBulUjPOgX8aIYVhXbe+fBTmvB4HKFwsV5JCdz6V2oPIkqHJV45uXT442LdVKTATB31MIA58PsxJlYKpo+v1CQWngPCxEcvtIKbO9fnqpS/3GBrGeEOuYfzP3juLEeZjn00xKL7Nt16PtNW0mAJRyi2Or1wyYsX1Iw0LgExgxE6ieouauTLREQDXu0prskuFguICML1zYNsjE+B79oMkBZOMnwfhDQT7dAIcFgvQstTgX//mXLByFjNilcxiYPE3KXdT87PFe5se1n5ipzMOvzlTzFENuAUfXg5gFdLO/rFO7VGIgQQaBQhVoo1T/sTJiAFQbGVYeh+gboj0Rh1QYdIaCMhnMiQ01+6QZpLQNkfMJDe7exa4R/ABvIl6WHdQlcRoo7pqp8kWmR0D+Th+JrIg==
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            2018-01-01
+                        </div>
+                        <div class="col-lg-6">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="密码"/>
+                                    <span class="input-group-btn">
+                                        <a name="name_decrypt" class="btn btn-default">解密</a>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body"  style="word-wrap:break-word" hidden="true">
+                    解密后的日记
+                </div>
+            </div>
+
+
+        </div>
+        <div id="">
+
+            <a class="btn btn-primary" id="id_click" onclick="myclick();">test</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    showDiary();
+    $("a[name='name_decrypt']").click(decryptDiary);</script>
+</body>
+</html>
