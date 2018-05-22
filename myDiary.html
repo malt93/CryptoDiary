@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>秘密日记</title>
+    <script src="js/lib/nebPay.js"></script>
+    <script src="js/lib/nebulas.js"></script>
+    <script src="js/lib/aes.js"></script>
+    <script src="js/lib/aes-ctr.js"></script>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/cd.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="js/lib/nebPay.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="./index.html">秘密日记</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="./index.html">广场</a></li>
+                    <li class="active"><a href="./myDiary.html">我的日记</a></li>
+                </ul>
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--<li><a href="./About/">About</a></li>-->
+
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="jumbotron">
+
+        <div id="id_div_creatdiary">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    新的日记
+                </div>
+                <div style="word-wrap:break-word" class="panel-body">
+                    <textarea id="id_textarea_newdiary"></textarea>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div id="id_div_date" class="col-lg-6">
+
+                        </div>
+                        <script type="text/javascript">
+                            function setTime() {
+                                var date = new Date();
+                                $("#id_div_date")[0].innerText= date.getFullYear()
+                                    +"-"+date.getMonth()+"-"+date.getDay()+" "+date.getHours()
+                                    +":"+date.getMinutes()+":"+date.getSeconds();
+                            }
+                            self.setInterval("setTime()",1000);
+                        </script>
+                        <div class="col-lg-6" id="id_div_noencode">
+                            <a id="id_btn_want2encode" class="btn btn-default col-lg-5">
+                                不加密，直接发布
+                            </a>
+                            <a id="id_btn_want2encode" class="btn btn-default col-lg-5 col-lg-offset-1" onclick="$('#id_div_noencode').hide();$('#id_form_encode').show();">
+                                我要加密
+                            </a>
+                        </div>
+                        <div class="col-lg-6" id="id_form_encode" hidden="true">
+                            <form class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="密码">
+                                    <span class="input-group-btn">
+                                        <a id="id_btn_encode" class="btn btn-default">
+                                            加密后发布
+                                        </a>
+                                    </span>
+                                </div>
+                            </form>
+                            <a id="id_btn_want2encode" class="btn btn-default col-lg-2" onclick="$('#id_div_noencode').show();$('#id_form_encode').hide();">
+                                取消
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="id_div_encoded" class="panel-body" style="word-wrap:break-word" hidden="true">
+
+                </div>
+            </div>
+        </div>
+        <div id="id_div_diarylist">
+
+        </div>
+        <div id="">
+
+            <a class="btn btn-primary" id="id_click" onclick="myclick();">test</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    showDiary();
+    $("a[name='name_decrypt']").click(decryptDiary);</script>
+</body>
+</html>
