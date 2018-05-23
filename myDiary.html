@@ -10,8 +10,9 @@
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/cd.js"></script>
-    <link rel="stylesheet" href="bootstrap.min.css">
     <script src="js/lib/nebPay.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
 
@@ -33,10 +34,30 @@
                 <ul class="nav navbar-nav">
                     <li><a href="./index.html">广场</a></li>
                     <li class="active"><a href="./myDiary.html">我的日记</a></li>
+                    <li><a href="./allUser.html">所有用户</a></li>
                 </ul>
-                <!--<ul class="nav navbar-nav navbar-right">-->
-                <!--<li><a href="./About/">About</a></li>-->
+                <form id="id_form_login" class="navbar-form navbar-right" >
+                    <div id="id_div_login">
+                        <div class="form-group">
+                            <input id="id_input_creator" type="text" class="form-control"
+                                   placeholder="输入账户地址即可">
+                        </div>
+                        <a class="btn btn-primary" id="btn_set_address"
+                           onclick="setAddress($('#id_input_creator').val());">登录</a>
+                    </div>
+                    <div id="id_div_creator" style="display: none;">
+                        <div class="form-group">
+                            <label class="navbar-text" style="display:block;overflow: hidden;
+                                                                  text-overflow:ellipsis; white-space: nowrap;
+                                                                  width:300px;font-weight: 600;font-size: 14px;">
+                                User:<a id="id_p_creator" class="navbar-link"
+                                        style="font-weight: 800;font-size: 14px;"></a>
+                            </label>
+                        </div>
+                        <a class="btn btn-primary" id="btn_logout" onclick="logout();">退出</a>
 
+                    </div>
+                </form>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </nav>
@@ -44,12 +65,12 @@
     <div class="jumbotron">
 
         <div id="id_div_creatdiary">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     新的日记
                 </div>
                 <div style="word-wrap:break-word" class="panel-body">
-                    <textarea id="id_textarea_newdiary"></textarea>
+                    <textarea id="id_textarea_newdiary" style="width: 100%;height: 100px;"></textarea>
                 </div>
                 <div class="panel-footer">
                     <div class="row">
@@ -60,31 +81,39 @@
                             function setTime() {
                                 var date = new Date();
                                 $("#id_div_date")[0].innerText= date.getFullYear()
-                                    +"-"+date.getMonth()+"-"+date.getDay()+" "+date.getHours()
+                                    +"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()
                                     +":"+date.getMinutes()+":"+date.getSeconds();
                             }
                             self.setInterval("setTime()",1000);
                         </script>
                         <div class="col-lg-6" id="id_div_noencode">
-                            <a id="id_btn_want2encode" class="btn btn-default col-lg-5">
+                            <a id="id_btn_publish" class="btn btn-default col-lg-5" onclick="publishDiaryWO();">
                                 不加密，直接发布
                             </a>
-                            <a id="id_btn_want2encode" class="btn btn-default col-lg-5 col-lg-offset-1" onclick="$('#id_div_noencode').hide();$('#id_form_encode').show();">
+                            <a id="id_btn_want2encode" class="btn btn-default col-lg-5 col-lg-offset-1"
+                               onclick="$('#id_div_noencode').hide();$('#id_form_encode').show();">
                                 我要加密
                             </a>
                         </div>
                         <div class="col-lg-6" id="id_form_encode" hidden="true">
                             <form class="col-lg-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="密码">
+                                    <input id="id_input_encodekey" type="text" class="form-control" placeholder="本地加密密码，请记牢哦">
                                     <span class="input-group-btn">
-                                        <a id="id_btn_encode" class="btn btn-default">
-                                            加密后发布
+                                        <a id="id_btn_encode" class="btn btn-default" onclick="encodeDiary();">
+                                            加密
+                                        </a>
+                                    </span>
+                                    <span class="input-group-btn">
+                                        <a id="id_btn_encodedPushlish" class="btn btn-default" disabled="disabled"
+                                           onclick="encodedPublish();">
+                                            发布
                                         </a>
                                     </span>
                                 </div>
                             </form>
-                            <a id="id_btn_want2encode" class="btn btn-default col-lg-2" onclick="$('#id_div_noencode').show();$('#id_form_encode').hide();">
+                            <a id="id_btn_cancleencode" class="btn btn-default col-lg-2"
+                               onclick="$('#id_div_noencode').show();$('#id_form_encode').hide();">
                                 取消
                             </a>
                         </div>
@@ -95,17 +124,26 @@
                 </div>
             </div>
         </div>
+
+        <div id="id_div_refresh" style="font-weight: 700">
+            <a class="btn btn-info   btn-block" id="id_refresh" onclick="refreshSelf();">刷新</a>
+        </div>
+        <br>
+        <div id="id_div_diaryCount">
+        </div>
+        <br>
         <div id="id_div_diarylist">
-
         </div>
-        <div id="">
+         <!--<div id="id_div_loadmore" style="font-weight: 700">-->
+            <!--<a class="btn btn-info   btn-block" id="id_loadmore" onclick="loadMore();">加载更多</a>-->
+        <!--</div>-->
 
-            <a class="btn btn-primary" id="id_click" onclick="myclick();">test</a>
-        </div>
     </div>
 </div>
+
+<script src="js/cd.js"></script>
 <script type="text/javascript">
-    showDiary();
-    $("a[name='name_decrypt']").click(decryptDiary);</script>
+    onloadSelf();
+</script>
 </body>
 </html>
